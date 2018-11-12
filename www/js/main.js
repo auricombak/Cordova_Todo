@@ -7,24 +7,33 @@ var i = 0;
 //Check for todos
 if(localStorage.getItem('todos') != null){
 	//Loop through and output li items
+
+	// HashMap<date, html>
 	var html_list_view_map = {};
+
 	$.each(todoList,function(key, value){
+
 		if(!html_list_view_map.hasOwnProperty(value.todo_date)){
-			html_list_view_map[value.todo_date] = '<li data-role="list-divider id="'+value.todo_date+'">'+value.todo_date+'<span class="ui-li-count">2</span></li><li id="task-'+i+'"><a id="todo_link" href="#edit" data-todo_name ="'+value.todo_name+'" data-todo_date="'+value.todo_date +'" data-todo_category="'+value.todo_category+'" data-todo_adress="'+value.todo_adress+'" data-todo_adress="'+value.todo_category+'" data-todo_time="'+value.todo_time+'">'+'<h2>'+value.todo_name+'</h2><p><strong>'+value.todo_adress+'</strong></p><p>'+value.todo_category+'</p><p class="ui-li-aside"><strong>'+value.todo_time+'</strong></p></a></li>';
-		}else{
-			html_list_view_map[value.todo_date] += '<li id="task-'+i+'"><a id="todo_link" href="#edit" data-todo_name ="'+value.todo_name+'" data-todo_date="'+value.todo_date +'" data-todo_category="'+value.todo_category+'" data-todo_adress="'+value.todo_adress+'" data-todo_adress="'+value.todo_category+'" data-todo_time="'+value.todo_time+'">'+'<h2>'+value.todo_name+'</h2><p><strong>'+value.todo_adress+'</strong></p><p>'+value.todo_category+'</p><p class="ui-li-aside"><strong>'+value.todo_time+'</strong></p></a></li>';
+			html_list_view_map[value.todo_date] = [];
 		}
+		html_list_view_map[value.todo_date].push('<li id="task-'+i+'"><a id="todo_link" href="#edit" data-todo_name ="'+value.todo_name+'" data-todo_date="'+value.todo_date +'" data-todo_category="'+value.todo_category+'" data-todo_adress="'+value.todo_adress+'" data-todo_adress="'+value.todo_category+'" data-todo_time="'+value.todo_time+'">'+'<h2>'+value.todo_name+'</h2><p><strong>'+value.todo_adress+'</strong></p><p>'+value.todo_category+'</p><p class="ui-li-aside"><strong>'+value.todo_time+'</strong></p></a></li>');
 		i++;
 	});
 
-	//############# TODO ###############
-	//#### Sort the hashmap by key #####
-	//##################################
+	const html_list_view_map_sorted = {};
+	Object.keys(html_list_view_map).sort().forEach(function(key) {
+  	html_list_view_map_sorted[key] = html_list_view_map[key];
+	});
 
 	//For each date group event append to the list of events
-	for (var key_date in html_list_view_map) {
- 			if (html_list_view_map.hasOwnProperty(key_date)) {
-					$('#todos').append(html_list_view_map[key_date]);
+	for (var key_date in html_list_view_map_sorted) {
+ 			if (html_list_view_map_sorted.hasOwnProperty(key_date)) {
+
+					$('#todos').append('<li data-role="list-divider id="'+key_date+'">'+key_date+'<span class="ui-li-count">'+html_list_view_map_sorted[key_date].length+'</span></li>');
+					html_list_view_map_sorted[key_date].forEach(function(event_html)
+					{
+   							$('#todos').append(event_html);
+					});
  			}
 	}
 

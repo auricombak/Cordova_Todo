@@ -20,7 +20,15 @@
 
 		<main data-role="content" id="content">
 			<p><a href="#add" data-role="button">Add A Todo</a></p>
-			<p><a href="index.html" data-ajax="false" id="clear_btn" data-role="button" data-theme="b">Clear All Todos</a></p>
+			<p><a href="index.html" data-ajax="false" id="clear_btn" data-role="button">Clear All Todos</a></p>
+			<div class="ui-field-contain">
+  		<label for="select-choice-1" class="select">Filter method:</label>
+	  		<select name="select-choice-1" id="select-choice-1">
+	    		<option value="standard"><a href="index.html" id="date" data-role="buttonDate" data-inline="true" class="ui-btn ui-icon-calendar ui-btn-icon-left" data-theme="b">Date</a></option>
+	    		<option value="rush"><a href="index.html" id="date" data-role="buttonName" data-inline="true" class="ui-btn ui-icon-bars ui-btn-icon-left" data-theme="b">Name</a></option>
+	    		<option value="express"><a href="index.html" id="date" data-role="buttonCategory" data-inline="true" class="ui-btn ui-icon-tag ui-btn-icon-left" data-theme="b">Category</a></option>
+	  		</select>
+			</div>
 
 			<ul data-role="listview" id="todos" data-filter="true" data-filter-placeholder="Search Todos..." data-inset="true" >
 
@@ -32,6 +40,7 @@
 			<h4>MobileTodo &copy; 2014</h4>
 		</footer>
 	</div>
+
 
 
 	<!-- Add Page -->
